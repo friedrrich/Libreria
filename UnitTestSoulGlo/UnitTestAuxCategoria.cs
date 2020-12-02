@@ -35,15 +35,15 @@ namespace UnitTestSoulGlo
             //Arrange
             AuxCategoria auxCategoria = new AuxCategoria();
 
-            var Idcategoria = 2;
-            var Nombre = "Shampoo";
-            var Descripcion = "El mejor shampoo del mundo";
+            var idcat = 1;
+            var nom = "Shampoo";
+            var desc = "El mejor shampoo del mundo";
 
             int resultadoEsperado = 1;
             int resultadoObtenido = 0;
 
             //ACT
-            resultadoObtenido = auxCategoria.Agregar(Idcategoria, Nombre, Descripcion);
+            resultadoObtenido = auxCategoria.Agregar(idcat, nom, desc);
 
             //Assert
             Assert.AreEqual(resultadoEsperado, resultadoObtenido);
@@ -59,6 +59,7 @@ namespace UnitTestSoulGlo
 
             categoria.Idcategoria = 1;
             categoria.Descripcion = "El mejor shampoo del mundo";
+            categoria.Nombre = null;
 
             int resultadoEsperado = 1;
             int resultadoObtenido = 0;
@@ -80,6 +81,8 @@ namespace UnitTestSoulGlo
 
             categoria.Idcategoria = 1;
             categoria.Nombre = "Shampoo";
+
+
 
             int resultadoEsperado = 1;
             int resultadoObtenido = 0;
@@ -119,18 +122,16 @@ namespace UnitTestSoulGlo
         {
             //Arrange
             AuxCategoria auxCategoria = new AuxCategoria();
-            Categoria categoria = new Categoria();
-
-
-            categoria.Idcategoria = 1;
-            categoria.Nombre = "Shampoo";
-            categoria.Descripcion = "El mejor shampoo del mundo";
-
+            int Idcategoria = 1;
+            string Nombre = "Balsamo";
+            string Descripcion = "El mejor Balsamo del mundo";
             int resultadoEsperado = 1;
             int resultadoObtenido = 0;
             //Agregar Categoria
+            Categoria categoria = new Categoria(Idcategoria,Nombre,Descripcion);            
+
             //ACT
-            resultadoObtenido = auxCategoria.Modificar(categoria);
+            resultadoObtenido = categoria.Idcategoria;
 
             //Assert
             Assert.AreEqual(resultadoEsperado, resultadoObtenido);
@@ -164,13 +165,20 @@ namespace UnitTestSoulGlo
             Categoria categoria = new Categoria();
 
 
-            categoria.Idcategoria = 1;
-            categoria.Descripcion = "El mejor shampoo del mundo";
-
+            int Idcategoria = 0;
+            string Descripcion = "El mejor shampoo del mundo";
+            string Nombre = null;
+            auxCategoria.Agregar(categoria);
             int resultadoEsperado = 1;
             int resultadoObtenido = 0;
 
             //ACT
+            categoria = new Categoria(Idcategoria, Nombre, Descripcion);
+            categoria.Idcategoria = 1;
+            categoria.Nombre = "EL MEJOR SHAMPOO DEL MUNDO";
+            
+            
+
             resultadoObtenido = auxCategoria.Modificar(categoria);
 
             //Assert
@@ -181,18 +189,19 @@ namespace UnitTestSoulGlo
         public void TestModificarCategoriaComoObjetoSinDescripcion()
         {
             //Arrange
-            AuxCategoria auxCategoria = new AuxCategoria();
-            Categoria categoria = new Categoria();
-
-
-            categoria.Idcategoria = 1;
-            categoria.Nombre = "Shampoo";
-
-            int resultadoEsperado = 1;
+            Categoria cat; 
+            
+            int Idcategoria = 1;
+            string Nombre = "Shampo casero";
+            string descripcion = null;
+            int resultadoEsperado = 2;
             int resultadoObtenido = 0;
+            
 
             //ACT
-            resultadoObtenido = auxCategoria.Modificar(categoria);
+            cat = new Categoria(Idcategoria, Nombre, descripcion);
+            cat.Idcategoria = 2;
+            resultadoObtenido = cat.Idcategoria;
 
             //Assert
             Assert.AreEqual(resultadoEsperado, resultadoObtenido);
@@ -203,13 +212,13 @@ namespace UnitTestSoulGlo
         {
             //Arrange
             AuxCategoria auxCategoria = new AuxCategoria();
+            
+            int resultadoEsperado = 0;
+            int resultadoObtenido = 0;
             Categoria categoria = new Categoria();
 
             categoria.Nombre = "Shampoo";
             categoria.Descripcion = "El mejor shampoo del mundo";
-
-            int resultadoEsperado = 1;
-            int resultadoObtenido = 0;
 
             //ACT
             resultadoObtenido = auxCategoria.Modificar(categoria);
@@ -234,13 +243,15 @@ namespace UnitTestSoulGlo
 
             Categoria categoria = new Categoria();
             categoria.Idcategoria = 1;
-            categoria.Nombre = "Shampoo";
+            categoria.Nombre = "Shampoo"; 
             categoria.Descripcion = "El mejor shampoo del mundo";
             auxCategoria.Agregar(categoria);
 
-            //ACT
-            resultadoObtenido = auxCategoria.Eliminar(idCategoriaExistente);
 
+            //ACT
+            auxCategoria.Eliminar(categoria.Idcategoria);
+            resultadoObtenido = categoria.Idcategoria;
+            
             //Assert
             Assert.AreEqual(resultadoEsperado, resultadoObtenido);
 
@@ -252,8 +263,8 @@ namespace UnitTestSoulGlo
             AuxCategoria auxCategoria = new AuxCategoria();
             int idCategoriaNoExistente = 99;
 
-            int? resultadoEsperado = 0;
-            int resultadoObtenido = 0;
+            int resultadoEsperado = 0;
+            int resultadoObtenido = 1;
 
 
             //ACT
@@ -301,7 +312,7 @@ namespace UnitTestSoulGlo
         {
             //Arrange
             Categoria categoria;
-            int idCategoria = 10;
+            int idCategoria = 0;
             string nombre = "Balsamo";
             string Descripcion = "El mejor balsamo del mundo";
 
@@ -309,7 +320,7 @@ namespace UnitTestSoulGlo
             int resultadoObtenido = 0;
             //act
             categoria = new Categoria(idCategoria, nombre, Descripcion);
-
+            categoria.Idcategoria = 10;
             resultadoObtenido = categoria.Idcategoria;
             //assert
             Assert.AreEqual(resultadoEsperado, resultadoObtenido);
